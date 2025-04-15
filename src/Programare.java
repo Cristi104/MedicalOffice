@@ -16,4 +16,24 @@ public class Programare {
         this.dateTime = dateTime;
         this.serviciu = serviciu;
     }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public Medic getMedic() {
+        return medic;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public Operatie getServiciu() {
+        return serviciu;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
 }
