@@ -4,9 +4,9 @@ public class Programare {
     private Client client;
     private Medic medic;
     private LocalDateTime dateTime;
-    private Serviciu serviciu;
+    private Operatie serviciu;
 
-    public Programare(Client client, Medic medic, LocalDateTime dateTime, Serviciu serviciu) throws Exception{
+    public Programare(Client client, Medic medic, LocalDateTime dateTime, Operatie serviciu) throws Exception{
         if(dateTime.isBefore(LocalDateTime.now())){
             throw new Exception("invalid date appointment cant be created in the past");
         }

@@ -1,9 +1,9 @@
-public class Serviciu {
+public class Operatie {
     private String descriere;
     private float durata;
     private int cost;
 
-    public Serviciu(String descriere, float durata, int cost) throws Exception{
+    public Operatie(String descriere, float durata, int cost) throws Exception{
         if(durata <= 0 || durata >= 16){
             throw new Exception("durata invalida");
         }

@@ -22,7 +22,7 @@ Clase folsite:
 1. Client(nume, prenume, CNP, telefon, adresa)
 2. Medic(nume, prenume, telefon, cabinet, orar, specializare)
 3. Programare(client, medic, data, ora, serviciu)
-4. Serviciu(descriere, durata, cost)
+4. Operatie(descriere, durata, cost)
 5. Adresa(oras, strada, numar)
 6. Orar(zile, interval_orar)
 7. Cabinet(nume, etaj, numar)
