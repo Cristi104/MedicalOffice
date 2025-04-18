@@ -11,9 +11,9 @@ Actiuni posibile in cadrul aplicatiei:
 3. Creaza o progrmare
 4. Anuleaza o progrmare
 5. schimba data/ora unei programari
-6. Afiseaza programarile unui doctor
+6. Afiseaza programarile pentru astazi ale unui doctor
 7. Afiseaza programarile unui pacient
-8. Afiseaza locurile libere ale unui medic
+8. Afiseaza locurile libere ale unui medic intr-un interval
 9. Afiseaza medici liberi la o anumita data/ora
 10. Cauta un pacient dupa CNP sau nume si prenume
 

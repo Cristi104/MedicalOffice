@@ -4,7 +4,7 @@ public class Programare {
     private Client client;
     private Medic medic;
     private LocalDateTime dateTime;
-    private Operatie serviciu;
+    private Operatie operatie;
 
     public Programare(Client client, Medic medic, LocalDateTime dateTime, Operatie serviciu) throws Exception{
         if(dateTime.isBefore(LocalDateTime.now())){
@@ -14,7 +14,7 @@ public class Programare {
         this.client = client;
         this.medic = medic;
         this.dateTime = dateTime;
-        this.serviciu = serviciu;
+        this.operatie = serviciu;
     }
 
     public Client getClient() {
@@ -29,8 +29,8 @@ public class Programare {
         return dateTime;
     }
 
-    public Operatie getServiciu() {
-        return serviciu;
+    public Operatie getOperatie() {
+        return operatie;
     }
 
     public void setDateTime(LocalDateTime dateTime) {
