@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Service {
@@ -131,6 +132,7 @@ public class Service {
 
             if(null == programari) {
                 System.out.println("Ziua: " + date.toString() + " de la: " + medic.getOrar().getOraInceput() + " la: " + medic.getOrar().getOraSfarsit() + "\n");
+                continue;
             }
 
             boolean [] ore = new boolean[24];
@@ -179,6 +181,7 @@ public class Service {
 
                 System.out.println("Medic: " + medic.getNume() + " " + medic.getPrenume() + "\n");
             }
+            return;
         }
 
         for(Medic medic : this.medici){
@@ -213,6 +216,18 @@ public class Service {
         System.out.println("Nume: " + client.getNume() + " " + client.getPrenume() + " nr_telefon: " + client.getTelefon() + " adresa: " + client.getAdresa());
     }
 
+    public void printAllMedici(){
+        for(int i = 0; i < this.medici.size(); i++){
+            System.out.println(i + " - " + this.medici.get(i).toString() + "\n");
+        }
+    }
+
+    public void printAllClienti(){
+        for(int i = 0; i < this.clienti.size(); i++){
+            System.out.println(i + " - " + this.clienti.get(i).toString() + "\n");
+        }
+    }
+
     public void menu() throws Exception {
         boolean ok = true;
         Scanner in = new Scanner(System.in);
@@ -231,6 +246,7 @@ public class Service {
                     "11 - iesire");
             int opt = in.nextInt();
             in.nextLine();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH/mm/dd/MM/yyyy");
             switch (opt){
                 case 1:
                     System.out.println("Nume:");
@@ -248,9 +264,13 @@ public class Service {
                     System.out.println("Nr:");
                     int nr = in.nextInt();
                     in.nextLine();
-                    Adresa adresa = new Adresa(oras, strada, nr);
-                    Client client = new Client(nume, prenume, telefon, CNP, adresa);
-                    this.addClient(client);
+                    try {
+                        Adresa adresa = new Adresa(oras, strada, nr);
+                        Client client = new Client(nume, prenume, telefon, CNP, adresa);
+                        this.addClient(client);
+                    } catch (Exception e) {
+                        System.out.println(e.toString() + "\n");
+                    }
                     break;
                 case 2:
                     System.out.println("Nume:");
@@ -262,24 +282,122 @@ public class Service {
                     Cabinet cabinet = new Cabinet("test", 1, 101);
                     System.out.println("Specializare:");
                     String specializare = in.nextLine();
-                    Medic medic = new Medic(nume, prenume, telefon, cabinet, specializare, new Orar());
-                    this.addMedic(medic);
+                    try {
+                        Medic medic = new Medic(nume, prenume, telefon, cabinet, specializare, new Orar());
+                        this.addMedic(medic);
+                    } catch (Exception e) {
+                        System.out.println(e.toString() + "\n");
+                    }
                     break;
                 case 3:
+                    printAllMedici();
+                    System.out.println("alegeti un medic:");
+                    int indexMedic = in.nextInt();
+                    printAllClienti();
+                    System.out.println("alegeti un pacient:");
+                    int indexPacient = in.nextInt();
+                    in.nextLine();
+                    System.out.println("data operatiei (HH/mm/dd/MM/yyyy):");
+                    String dateString = in.nextLine();
+                    LocalDateTime dateTime = LocalDateTime.parse(dateString, formatter);
+                    System.out.println("descriere operatie:");
+                    String desc = in.nextLine();
+                    System.out.println("durata operatie:");
+                    int durata = in.nextInt();
+                    System.out.println("cost operatie:");
+                    int cost = in.nextInt();
+                    try {
+                        Operatie operatie = new Operatie(desc, durata, cost);
+                        Programare programare = new Programare(this.clienti.get(indexPacient), this.medici.get(indexMedic), dateTime, operatie);
+                        this.addProgramare(programare);
+                    } catch (Exception e) {
+                        System.out.println(e.toString() + "\n");
+                    }
                     break;
                 case 4:
+                    System.out.println("data operatiei (HH/mm/dd/MM/yyyy):");
+                    dateString = in.nextLine();
+                    dateTime = LocalDateTime.parse(dateString, formatter);
+                    printAllMedici();
+                    System.out.println("alegeti un medic:");
+                    indexMedic = in.nextInt();
+                    LocalDate date = dateTime.toLocalDate();
+                    try {
+                        this.cancelProgramare(this.medici.get(indexMedic), dateTime);
+                    } catch (Exception e) {
+                        System.out.println(e.toString() + "\n");
+                    }
                     break;
                 case 5:
+                    System.out.println("data operatiei (HH/mm/dd/MM/yyyy):");
+                    dateString = in.nextLine();
+                    dateTime = LocalDateTime.parse(dateString, formatter);
+                    System.out.println("data noua (HH/mm/dd/MM/yyyy):");
+                    dateString = in.nextLine();
+                    LocalDateTime newDateTime = LocalDateTime.parse(dateString, formatter);
+                    printAllMedici();
+                    System.out.println("alegeti un medic:");
+                    indexMedic = in.nextInt();
+                    try {
+                        this.rescheduleProgramare(this.medici.get(indexMedic), dateTime, newDateTime);
+                    } catch (Exception e) {
+                        System.out.println(e.toString() + "\n");
+                    }
                     break;
                 case 6:
+                    printAllMedici();
+                    System.out.println("alegeti un medic:");
+                    indexMedic = in.nextInt();
+                    try {
+                        printProgramari(this.medici.get(indexMedic));
+                    } catch (Exception e) {
+                        System.out.println(e.toString() + "\n");
+                    }
                     break;
                 case 7:
+                    printAllMedici();
+                    System.out.println("alegeti un pacient:");
+                    indexPacient = in.nextInt();
+                    try {
+                        printProgramari(this.clienti.get(indexPacient));
+                    } catch (Exception e) {
+                        System.out.println(e.toString() + "\n");
+                    }
                     break;
                 case 8:
+                    System.out.println("data inceput (HH/mm/dd/MM/yyyy):");
+                    dateString = in.nextLine();
+                    dateTime = LocalDateTime.parse(dateString, formatter);
+                    System.out.println("data sfarsit (HH/mm/dd/MM/yyyy):");
+                    dateString = in.nextLine();
+                    LocalDateTime dateTime1 = LocalDateTime.parse(dateString, formatter);
+                    printAllMedici();
+                    System.out.println("alegeti un medic:");
+                    indexMedic = in.nextInt();
+                    try {
+                        this.printLiber(this.medici.get(indexMedic), dateTime.toLocalDate(), dateTime1.toLocalDate());
+                    } catch (Exception e) {
+                        System.out.println(e.toString() + "\n");
+                    }
                     break;
                 case 9:
+                    System.out.println("data si ora ceruta (HH/mm/dd/MM/yyyy):");
+                    dateString = in.nextLine();
+                    dateTime = LocalDateTime.parse(dateString, formatter);
+                    try {
+                        this.printLiber(dateTime);
+                    } catch (Exception e) {
+                        System.out.println(e.toString() + "\n");
+                    }
                     break;
                 case 10:
+                    System.out.println("CNP:");
+                    CNP = in.nextLine();
+                    try {
+                        this.printPacient(CNP);
+                    } catch (Exception e) {
+                        System.out.println(e.toString() + "\n");
+                    }
                     break;
                 case 11:
                     ok = false;

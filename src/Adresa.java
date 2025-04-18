@@ -24,4 +24,8 @@ public class Adresa {
     public int getNumar() {
         return numar;
     }
+
+    public String toString(){
+        return oras + " " + strada + " " + numar;
+    }
 }

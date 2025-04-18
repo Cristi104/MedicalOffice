@@ -22,4 +22,8 @@ public class Medic extends Persoana{
     public Orar getOrar() {
         return orar;
     }
+
+    public String toString(){
+        return super.toString() + " specializare: " + this.specializare;
+    }
 }

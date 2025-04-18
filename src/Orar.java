@@ -7,11 +7,11 @@ public class Orar {
     private int oraSfarsit;
 
     public Orar(){
-        this.zile = new DayOfWeek[7];
+        this.zile = new DayOfWeek[5];
         this.zile[0] = DayOfWeek.MONDAY;
-        this.zile[1] = DayOfWeek.THURSDAY;
+        this.zile[1] = DayOfWeek.TUESDAY;
         this.zile[2] = DayOfWeek.WEDNESDAY;
-        this.zile[3] = DayOfWeek.TUESDAY;
+        this.zile[3] = DayOfWeek.THURSDAY;
         this.zile[4] = DayOfWeek.FRIDAY;
         this.oraInceput = 9;
         this.oraSfarsit = 17;

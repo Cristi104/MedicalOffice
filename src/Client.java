@@ -26,4 +26,8 @@ public class Client extends Persoana{
     public Adresa getAdresa() {
         return adresa;
     }
+
+    public String toString(){
+        return super.toString() + " CNP: " + CNP + " adresa: " + adresa.toString();
+    }
 }

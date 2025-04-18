@@ -30,4 +30,8 @@ public class Persoana {
     public String getTelefon() {
         return telefon;
     }
+
+    public String toString(){
+        return "Nume: " + this.nume + " prenume: " + this.prenume + " telefon: " + this.telefon;
+    }
 }
