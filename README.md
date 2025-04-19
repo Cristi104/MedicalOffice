@@ -26,4 +26,4 @@ Clase folsite:
 5. Adresa(oras, strada, numar)
 6. Orar(zile, interval_orar)
 7. Cabinet(nume, etaj, numar)
-8. 
+8. Specializare(nume, descriere, salariu)

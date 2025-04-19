@@ -1,9 +1,12 @@
+import java.io.PrintStream;
+import java.util.Scanner;
+
 public class Medic extends Persoana{
     private Cabinet cabinet;
-    private String specializare;
+    private Specializare specializare;
     private Orar orar;
 
-    public Medic(String nume, String prenume, String telefon, Cabinet cabinet, String specializare, Orar orar) throws Exception {
+    public Medic(String nume, String prenume, String telefon, Cabinet cabinet, Specializare specializare, Orar orar) throws Exception {
         super(nume, prenume, telefon);
 
         this.cabinet = cabinet;
@@ -11,11 +14,19 @@ public class Medic extends Persoana{
         this.orar = orar;
     }
 
+    public Medic(Scanner in, PrintStream out) throws Exception{
+        super(in, out);
+
+        this.cabinet = new Cabinet(in, out);
+        this.specializare = new Specializare(in, out);
+        this.orar = new Orar();
+    }
+
     public Cabinet getCabinet() {
         return cabinet;
     }
 
-    public String getSpecializare() {
+    public Specializare getSpecializare() {
         return specializare;
     }
 

@@ -249,41 +249,16 @@ public class Service {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH/mm/dd/MM/yyyy");
             switch (opt){
                 case 1:
-                    System.out.println("Nume:");
-                    String nume = in.nextLine();
-                    System.out.println("Prenume:");
-                    String prenume = in.nextLine();
-                    System.out.println("Nr Telefon:");
-                    String telefon = in.nextLine();
-                    System.out.println("CNP:");
-                    String CNP = in.nextLine();
-                    System.out.println("Oras:");
-                    String oras = in.nextLine();
-                    System.out.println("Strada:");
-                    String strada = in.nextLine();
-                    System.out.println("Nr:");
-                    int nr = in.nextInt();
-                    in.nextLine();
                     try {
-                        Adresa adresa = new Adresa(oras, strada, nr);
-                        Client client = new Client(nume, prenume, telefon, CNP, adresa);
+                        Client client = new Client(in, System.out);
                         this.addClient(client);
                     } catch (Exception e) {
                         System.out.println(e.toString() + "\n");
                     }
                     break;
                 case 2:
-                    System.out.println("Nume:");
-                    nume = in.nextLine();
-                    System.out.println("Prenume:");
-                    prenume = in.nextLine();
-                    System.out.println("Nr Telefon:");
-                    telefon = in.nextLine();
-                    Cabinet cabinet = new Cabinet("test", 1, 101);
-                    System.out.println("Specializare:");
-                    String specializare = in.nextLine();
                     try {
-                        Medic medic = new Medic(nume, prenume, telefon, cabinet, specializare, new Orar());
+                        Medic medic = new Medic(in, System.out);
                         this.addMedic(medic);
                     } catch (Exception e) {
                         System.out.println(e.toString() + "\n");
@@ -392,7 +367,7 @@ public class Service {
                     break;
                 case 10:
                     System.out.println("CNP:");
-                    CNP = in.nextLine();
+                    String CNP = in.nextLine();
                     try {
                         this.printPacient(CNP);
                     } catch (Exception e) {
