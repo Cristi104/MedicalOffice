@@ -2,6 +2,7 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 public class Persoana {
+    protected long id;
     protected String nume;
     protected String prenume;
     protected String telefon;
@@ -9,6 +10,7 @@ public class Persoana {
     public Persoana(String nume, String prenume, String telefon) throws Exception{
         this.nume = nume;
         this.prenume = prenume;
+        this.id = -1;
         if(telefon.length() != 10){
             throw new Exception("numar de telefon invalid");
         }
@@ -42,6 +44,7 @@ public class Persoana {
             }
         }
 
+        this.id = -1;
         this.telefon = telefon;
     }
 
@@ -55,6 +58,10 @@ public class Persoana {
 
     public String getTelefon() {
         return telefon;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public String toString(){

@@ -1,7 +1,9 @@
+import java.sql.*;
 import java.time.DayOfWeek;
 import java.util.Arrays;
 
 public class Orar {
+    protected long id;
     private DayOfWeek [] zile;
     private int oraInceput;
     private int oraSfarsit;
@@ -15,6 +17,7 @@ public class Orar {
         this.zile[4] = DayOfWeek.FRIDAY;
         this.oraInceput = 9;
         this.oraSfarsit = 17;
+        this.id = -1;
     }
 
     public Orar(String [] zile, int oraInceput, int oraSfarsit) throws Exception{
@@ -45,6 +48,53 @@ public class Orar {
 
         this.oraInceput = oraInceput;
         this.oraSfarsit = oraSfarsit;
+        this.id = -1;
+    }
+
+    private void insertZiOrar(Connection connection, long id_orar, int zi){
+        String insertSQL = "INSERT INTO zile_orar(zi, id_orar) VALUES(?, ?)";
+        try{
+            PreparedStatement stmt = connection.prepareStatement(insertSQL);
+            stmt.setInt(1, zi);
+            stmt.setLong(2, id_orar);
+
+            stmt.executeUpdate();
+
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public long insertIntoDatabse(){
+        Connection connection = DataBaseConnection.getInstance().getConnection();
+        String insertSQL = "INSERT INTO orare(ora_inceput, ora_sfarsit) VALUES(?, ?)";
+        try{
+            PreparedStatement stmt = connection.prepareStatement(insertSQL, Statement.RETURN_GENERATED_KEYS);
+            stmt.setInt(1, this.getOraInceput());
+            stmt.setInt(2, this.getOraSfarsit());
+
+            int affectedRows = stmt.executeUpdate();
+
+            if (affectedRows > 0) {
+                ResultSet generatedKeys = stmt.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    long insertedId = generatedKeys.getLong(1);
+                    DayOfWeek [] zile = this.getZile();
+                    for(int i = 0; i < zile.length; i++){
+                        this.insertZiOrar(connection, insertedId, zile[i].getValue());
+                    }
+                    this.id = insertedId;
+                    return insertedId;
+                }
+            }
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+        return -1;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public DayOfWeek[] getZile() {

@@ -16,10 +16,12 @@ public class Service {
     }
 
     public void addMedic(Medic medic){
+        medic.insertIntoDatabse();
         this.medici.add(medic);
     }
 
     public void addClient(Client client){
+        client.insertIntoDatabase();
         this.clienti.add(client);
     }
 
@@ -31,6 +33,8 @@ public class Service {
         if(!this.medici.contains(programare.getMedic())){
             throw new Exception("Meidcul dat nu exista");
         }
+
+        programare.insertIntoDatabase();
 
         LocalDate date = programare.getDateTime().toLocalDate();
         List<Programare> programari = this.programari.get(date);
