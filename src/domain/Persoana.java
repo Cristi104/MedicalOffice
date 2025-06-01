@@ -1,3 +1,5 @@
+package domain;
+
 import java.io.PrintStream;
 import java.util.Scanner;
 
@@ -62,6 +64,10 @@ public class Persoana {
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String toString(){

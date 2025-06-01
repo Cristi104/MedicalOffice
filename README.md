@@ -19,11 +19,11 @@ Actiuni posibile in cadrul aplicatiei:
 
 Clase folsite:
 
-1. Client(nume, prenume, CNP, telefon, adresa)
-2. Medic(nume, prenume, telefon, cabinet, orar, specializare)
-3. Programare(client, medic, data, ora, serviciu)
-4. Operatie(descriere, durata, cost)
-5. Adresa(oras, strada, numar)
-6. Orar(zile, interval_orar)
-7. Cabinet(nume, etaj, numar)
-8. Specializare(nume, descriere, salariu)
+1. domain.Client(nume, prenume, CNP, telefon, adresa)
+2. domain.Medic(nume, prenume, telefon, cabinet, orar, specializare)
+3. domain.Programare(client, medic, data, ora, serviciu)
+4. domain.Operatie(descriere, durata, cost)
+5. domain.Adresa(oras, strada, numar)
+6. domain.Orar(zile, interval_orar)
+7. domain.Cabinet(nume, etaj, numar)
+8. domain.Specializare(nume, descriere, salariu)

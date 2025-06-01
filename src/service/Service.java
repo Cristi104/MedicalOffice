@@ -1,3 +1,10 @@
+package service;
+
+import domain.Client;
+import domain.Medic;
+import domain.Operatie;
+import domain.Programare;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -109,7 +116,7 @@ public class Service {
         programari.stream().filter(pro ->
                 pro.getMedic().equals(medic)
         ).forEach(programare ->
-                System.out.println( "Programare de la: " + programare.getDateTime().toString() +
+                System.out.println( "domain.Programare de la: " + programare.getDateTime().toString() +
                                     " pacient: " + programare.getClient().getNume() + " " + programare.getClient().getPrenume() +
                                     " operatie: " + programare.getOperatie().getDescriere() + "\n")
         );
@@ -120,7 +127,7 @@ public class Service {
             entry.getValue().stream().filter(pro ->
                     pro.getClient().equals(client)
             ).forEach(programare ->
-                    System.out.println( "Programare de la: " + programare.getDateTime().toString() +
+                    System.out.println( "domain.Programare de la: " + programare.getDateTime().toString() +
                                         " medic: " + programare.getMedic().getNume() + " " + programare.getMedic().getPrenume() +
                                         " operatie: " + programare.getOperatie().getDescriere() + "\n")
             );
@@ -183,7 +190,7 @@ public class Service {
                     continue;
                 }
 
-                System.out.println("Medic: " + medic.getNume() + " " + medic.getPrenume() + "\n");
+                System.out.println("domain.Medic: " + medic.getNume() + " " + medic.getPrenume() + "\n");
             }
             return;
         }
@@ -204,7 +211,7 @@ public class Service {
                 continue;
             }
 
-            System.out.println("Medic: " + medic.getNume() + " " + medic.getPrenume() + "\n");
+            System.out.println("domain.Medic: " + medic.getNume() + " " + medic.getPrenume() + "\n");
         }
     }
 
