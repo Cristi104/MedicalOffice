@@ -22,4 +22,12 @@ public class AuditService {
             throw new RuntimeException(e);
         }
     }
+
+    public void close(){
+        try {
+            csv.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

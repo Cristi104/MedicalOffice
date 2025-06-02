@@ -83,6 +83,7 @@ public class ClientApp {
                 this.cautaClient();
                 break;
             case 11:
+                audit.close();
                 in.close();
                 System.exit(0);
                 break;
