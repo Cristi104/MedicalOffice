@@ -8,27 +8,13 @@ public class Specializare {
     protected long id;
     private String nume;
     private String descriere;
-    private int salariu;
+    private float salariu;
 
-    public Specializare(String nume, String descriere, int salariu) {
+    public Specializare(String nume, String descriere, float salariu) {
         this.nume = nume;
         this.descriere = descriere;
         this.salariu = salariu;
         this.id = -1;
-    }
-
-    public Specializare(Scanner in, PrintStream out) {
-        System.out.println("Nume specializare");
-        String nume = in.nextLine();
-        System.out.println("Descriere specializare");
-        String descriere = in.nextLine();
-        System.out.println("salariu specializare");
-        int salariu = in.nextInt();
-
-        this.id = -1;
-        this.nume = nume;
-        this.descriere = descriere;
-        this.salariu = salariu;
     }
 
     public long getId() {
@@ -47,7 +33,7 @@ public class Specializare {
         return descriere;
     }
 
-    public int getSalariu() {
+    public float getSalariu() {
         return salariu;
     }
 

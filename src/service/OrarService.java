@@ -3,8 +3,10 @@ package service;
 import domain.Orar;
 import persistence.OrarRepository;
 
+import java.util.Optional;
+
 public class OrarService {
-    private final OrarRepository adresaRepository = OrarRepository.getInstance();
+    private final OrarRepository orarRepository = OrarRepository.getInstance();
 
     public Orar insertNewOrar(String [] zile, int oraInceput, int oraSfarsit) throws Exception{
         if (oraInceput < 0 || oraInceput > 23){
@@ -22,6 +24,11 @@ public class OrarService {
         }
 
         Orar orar = new Orar(zile, oraInceput, oraSfarsit);
-        return adresaRepository.save(orar);
+        return orarRepository.save(orar);
+    }
+
+    public Orar getOrarById(Long id){
+        Optional<Orar> orar = orarRepository.findById(id + "");
+        return orar.orElseThrow(() -> new RuntimeException("Orarul dat lipseste"));
     }
 }

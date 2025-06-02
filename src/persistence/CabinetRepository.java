@@ -9,6 +9,7 @@ import java.util.Optional;
 
 public class CabinetRepository implements GenericRepository<Cabinet> {
     private static String insertSQL = "INSERT INTO cabinete(nume, etaj, numar) VALUES(?, ?, ?)";
+    private static String selectByIdSQL = "SELECT * FROM cabinete WHERE id_cabinet = ?";
     private Connection connection;
 
     private static volatile CabinetRepository instance;
@@ -54,6 +55,21 @@ public class CabinetRepository implements GenericRepository<Cabinet> {
 
     @Override
     public Optional<Cabinet> findById(String id) {
+        try{
+            PreparedStatement stmt = connection.prepareStatement(selectByIdSQL);
+            stmt.setLong(1, Long.parseLong(id));
+            ResultSet result = stmt.executeQuery();
+            while (result.next()){
+                String nume = result.getString(2);
+                int etaj = result.getInt(3);
+                int numar = result.getInt(4);
+                Cabinet cabinet = new Cabinet(nume, etaj, numar);
+                cabinet.setId(Long.parseLong(id));
+                return Optional.of(cabinet);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         return Optional.empty();
     }
 

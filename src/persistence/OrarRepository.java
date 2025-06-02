@@ -1,5 +1,6 @@
 package persistence;
 
+import domain.Cabinet;
 import domain.Orar;
 import persistence.util.DataBaseConnection;
 
@@ -10,6 +11,7 @@ import java.util.Optional;
 
 public class OrarRepository implements GenericRepository<Orar> {
     private static String insertSQL = "INSERT INTO orare(ora_inceput, ora_sfarsit) VALUES(?, ?)";
+    private static String selectByIdSQL = "SELECT * FROM orare WHERE id_orar = ?";
     private Connection connection;
 
     private static volatile OrarRepository instance;
@@ -53,10 +55,11 @@ public class OrarRepository implements GenericRepository<Orar> {
                 if (generatedKeys.next()) {
                     long insertedId = generatedKeys.getLong(1);
                     DayOfWeek[] zile = entity.getZile();
-                    for(int i = 0; i < zile.length; i++){
-                        this.insertZiOrar(connection, insertedId, zile[i].getValue());
-                    }
                     entity.setId(insertedId);
+                    for(int i = 0; i < zile.length; i++){
+                        if(zile[i] != null)
+                            this.insertZiOrar(connection, insertedId, zile[i].getValue());
+                    }
                 }
             }
         }catch (SQLException e){
@@ -70,8 +73,41 @@ public class OrarRepository implements GenericRepository<Orar> {
         return List.of();
     }
 
+    private DayOfWeek [] getZileOrar(long id_orar){
+        DayOfWeek [] zile = new DayOfWeek[7];
+        try{
+            PreparedStatement stmt = connection.prepareStatement("SELECT zi FROM zile_orar WHERE id_orar = ?");
+            stmt.setLong(1, id_orar);
+            ResultSet result = stmt.executeQuery();
+            int i = 0;
+            while (result.next()){
+                zile[i] = DayOfWeek.of(result.getInt(1));
+                i++;
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return zile;
+    }
+
     @Override
     public Optional<Orar> findById(String id) {
+        try{
+            PreparedStatement stmt = connection.prepareStatement(selectByIdSQL);
+            stmt.setLong(1, Long.parseLong(id));
+            ResultSet result = stmt.executeQuery();
+            while (result.next()){
+                int oraInceput = result.getInt(2);
+                int oraSfarsit = result.getInt(3);
+                DayOfWeek [] zile = getZileOrar(Long.parseLong(id));
+                Orar orar = new Orar(zile, oraInceput, oraSfarsit);
+                orar.setId(Long.parseLong(id));
+                return Optional.of(orar);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         return Optional.empty();
     }
 

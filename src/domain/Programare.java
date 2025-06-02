@@ -45,4 +45,9 @@ public class Programare {
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
+
+    @Override
+    public String toString() {
+        return "Medic: " + medic.getNume() + " " + medic.getPrenume() + " Client: " + client.getNume() + " " + client.getPrenume() + " Data si ora: " + dateTime + " Operatie: " + operatie.getDescriere();
+    }
 }

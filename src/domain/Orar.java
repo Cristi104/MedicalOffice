@@ -2,6 +2,7 @@ package domain;
 
 import java.sql.*;
 import java.time.DayOfWeek;
+import java.util.Arrays;
 
 public class Orar {
     protected long id;
@@ -41,6 +42,13 @@ public class Orar {
         this.id = -1;
     }
 
+    public Orar(DayOfWeek [] zile, int oraInceput, int oraSfarsit) throws Exception{
+        this.zile = zile;
+        this.oraInceput = oraInceput;
+        this.oraSfarsit = oraSfarsit;
+        this.id = -1;
+    }
+
     public long getId() {
         return id;
     }
@@ -59,5 +67,14 @@ public class Orar {
 
     public int getOraSfarsit() {
         return oraSfarsit;
+    }
+
+    @Override
+    public String toString() {
+        return "Orar{" +
+                "zile=" + Arrays.toString(zile) +
+                ", oraInceput=" + oraInceput +
+                ", oraSfarsit=" + oraSfarsit +
+                '}';
     }
 }

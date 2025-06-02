@@ -17,14 +17,6 @@ public class Medic extends Persoana {
         this.orar = orar;
     }
 
-    public Medic(Scanner in, PrintStream out) throws Exception{
-        super(in, out);
-
-        this.cabinet = new Cabinet(in, out);
-        this.specializare = new Specializare(in, out);
-        this.orar = new Orar();
-    }
-
     public Cabinet getCabinet() {
         return cabinet;
     }
@@ -38,6 +30,6 @@ public class Medic extends Persoana {
     }
 
     public String toString(){
-        return super.toString() + " specializare: " + this.specializare;
+        return super.toString() + "orar: " + this.orar + " specializare: " + this.specializare;
     }
 }

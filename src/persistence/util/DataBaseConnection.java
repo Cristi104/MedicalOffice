@@ -17,7 +17,7 @@ public class DataBaseConnection {
     }
 
     public DataBaseConnection(String username, String password){
-        String url = "jdbc:mysql://127.0.0.1:3306/mysql?useSSL=false&serverTimezone=UTC";
+        String url = "jdbc:mysql://127.0.0.1:3306/mysql?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC";
         try {
             this.connection = DriverManager.getConnection(url, username, password);
         } catch (Exception e) {

@@ -26,30 +26,6 @@ public class Persoana {
         this.telefon = telefon;
     }
 
-    public Persoana(Scanner in, PrintStream out) throws Exception{
-        System.out.println("Nume:");
-        String nume = in.nextLine();
-        System.out.println("Prenume:");
-        String prenume = in.nextLine();
-        System.out.println("Nr Telefon:");
-        String telefon = in.nextLine();
-
-        this.nume = nume;
-        this.prenume = prenume;
-        if(telefon.length() != 10){
-            throw new Exception("numar de telefon invalid");
-        }
-
-        for(int i = 0; i < telefon.length(); i++){
-            if(!Character.isDigit(telefon.charAt(i))){
-                throw new Exception("numar de telefon invalid");
-            }
-        }
-
-        this.id = -1;
-        this.telefon = telefon;
-    }
-
     public String getNume() {
         return nume;
     }
